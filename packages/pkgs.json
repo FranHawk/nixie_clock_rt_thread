@@ -1,0 +1,12 @@
+[
+ {
+  "path": "/packages/iot/at_device", 
+  "ver": "v2.0.3", 
+  "name": "AT_DEVICE"
+ }, 
+ {
+  "path": "/packages/peripherals/rtc/ds3231", 
+  "ver": "latest", 
+  "name": "DS3231"
+ }
+]
