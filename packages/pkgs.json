@@ -1,5 +1,10 @@
 [
  {
+  "path": "/packages/iot/netutils", 
+  "ver": "v1.2.0", 
+  "name": "NETUTILS"
+ }, 
+ {
   "path": "/packages/iot/at_device", 
   "ver": "v2.0.3", 
   "name": "AT_DEVICE"

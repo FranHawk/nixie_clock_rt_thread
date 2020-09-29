@@ -96,6 +96,9 @@
 #define RT_USING_I2C_BITOPS
 #define RT_USING_PIN
 #define RT_USING_RTC
+#define RTC_SYNC_USING_NTP
+#define RTC_NTP_FIRST_SYNC_DELAY 30
+#define RTC_NTP_SYNC_PERIOD 3600
 
 /* Using USB */
 
@@ -171,6 +174,13 @@
 
 /* end of Wiced WiFi */
 /* end of Wi-Fi */
+#define PKG_USING_NETUTILS
+#define PKG_NETUTILS_NTP
+#define NETUTILS_NTP_TIMEZONE 8
+#define NETUTILS_NTP_HOSTNAME "ntp.sjtu.edu.cn"
+#define NETUTILS_NTP_HOSTNAME2 "ntp.rt-thread.org"
+#define NETUTILS_NTP_HOSTNAME3 "edu.ntp.org.cn"
+#define PKG_USING_NETUTILS_V120
 #define PKG_USING_AT_DEVICE
 #define AT_DEVICE_USING_ESP8266
 #define AT_DEVICE_ESP8266_SAMPLE
