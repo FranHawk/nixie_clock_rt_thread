@@ -27,16 +27,27 @@
 
 static rt_thread_t tid1 = RT_NULL;
 
+
+uint8_t display_num;
+
+
+
 static void display_thread_entry(void *parameter)
 {
+    while(1)
+    {
+        rt_thread_mdelay(1000);
 
-
+        LOG_D("display num:%d",display_num);
+    }
 
 }
 
 
 int display_thread_startup(void)
 {
+
+
 
     HV57708_Init();//hv57708初始化
 
@@ -50,8 +61,6 @@ int display_thread_startup(void)
     /* 如果获得线程控制块，启动这个线程 */
     if (tid1 != RT_NULL)
         rt_thread_startup(tid1);
-
-
 
     return 0;
 }

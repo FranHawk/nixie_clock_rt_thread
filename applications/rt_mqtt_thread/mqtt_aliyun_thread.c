@@ -23,6 +23,9 @@
 
 #include "paho_mqtt.h"
 
+#include "display_thread.h"
+
+
 #include "cJSON.h"
 
 #define MQTT_URI                "tcp://a1w0XJbXwh0.iot-as-mqtt.cn-shanghai.aliyuncs.com:1883"
@@ -55,7 +58,7 @@ static void mqtt_offline_callback(MQTTClient *c)
 
 static void mqtt_sub_callback(MQTTClient *c, MessageData *msg_data)
 {
-    uint8_t display_num;
+    //uint8_t display_num;
     *((char *)msg_data->message->payload + msg_data->message->payloadlen) = '\0';
     LOG_D("mqtt sub callback:%s",(char *)msg_data->message->payload);
 
@@ -78,6 +81,8 @@ static void mqtt_sub_callback(MQTTClient *c, MessageData *msg_data)
         cJSON_Delete(cjson_test);
 
         LOG_D("display number:%d",display_num);
+
+
 }
 
 static void mqtt_sub_default_callback(MQTTClient *c, MessageData *msg_data)

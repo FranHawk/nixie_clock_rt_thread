@@ -20,6 +20,7 @@
 #include "drv_common.h"
 
 #include "mqtt_aliyun_thread.h"
+#include "display_thread.h"
 
 
 #define LED0_PIN  GET_PIN(A,8)
@@ -28,16 +29,21 @@ int main(void)
 {
     int count = 1;
 
+
+
     rt_pin_mode(LED0_PIN, PIN_MODE_OUTPUT);
 
     mqtt_start();
 
-    while (count++)
-    {
-        //LOG_D("Hello RT-Thread!");
-        rt_pin_write(LED0_PIN, !rt_pin_read(LED0_PIN));
-        rt_thread_mdelay(1000);
-    }
+    display_thread_startup();
+
+
+//    while (count++)
+//    {
+//        //LOG_D("Hello RT-Thread!");
+//        rt_pin_write(LED0_PIN, !rt_pin_read(LED0_PIN));
+//        rt_thread_mdelay(1000);
+//    }
 
 
     return RT_EOK;
