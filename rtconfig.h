@@ -81,6 +81,12 @@
 
 /* Device virtual file system */
 
+#define RT_USING_DFS
+#define DFS_USING_WORKDIR
+#define DFS_FILESYSTEMS_MAX 2
+#define DFS_FILESYSTEM_TYPES_MAX 2
+#define DFS_FD_MAX 16
+#define RT_USING_DFS_DEVFS
 /* end of Device virtual file system */
 
 /* Device Drivers */
@@ -108,6 +114,7 @@
 /* POSIX layer and C standard library */
 
 #define RT_USING_LIBC
+#define RT_USING_POSIX
 /* end of POSIX layer and C standard library */
 
 /* Network */
@@ -120,7 +127,7 @@
 
 #define SAL_USING_AT
 /* end of protocol stack implement */
-#define SAL_SOCKETS_NUM 16
+#define SAL_USING_POSIX
 /* end of Socket abstraction layer */
 
 /* Network interface device */
@@ -163,6 +170,15 @@
 
 /* IoT - internet of things */
 
+#define PKG_USING_PAHOMQTT
+#define PAHOMQTT_PIPE_MODE
+#define PKG_USING_PAHOMQTT_EXAMPLE
+#define RT_PKG_MQTT_THREAD_STACK_SIZE 8192
+#define PKG_PAHOMQTT_SUBSCRIBE_HANDLERS 1
+#define MQTT_DEBUG
+#define PKG_USING_PAHOMQTT_V110
+#define PKG_USING_CJSON
+#define PKG_USING_CJSON_V102
 
 /* Wi-Fi */
 
