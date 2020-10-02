@@ -19,6 +19,9 @@
 #include <rtdevice.h>
 #include "drv_common.h"
 
+#include "mqtt_aliyun_thread.h"
+
+
 #define LED0_PIN  GET_PIN(A,8)
 
 int main(void)
@@ -26,6 +29,8 @@ int main(void)
     int count = 1;
 
     rt_pin_mode(LED0_PIN, PIN_MODE_OUTPUT);
+
+    mqtt_start();
 
     while (count++)
     {
