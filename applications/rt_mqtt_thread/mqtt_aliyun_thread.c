@@ -94,7 +94,6 @@ static void mqtt_sub_default_callback(MQTTClient *c, MessageData *msg_data)
 int mqtt_start()
 {
     /* init condata param by using MQTTPacket_connectData_initializer */
-    //MQTTPacket_connectData condata = MQTTPacket_connectData_initializer;
     MQTTPacket_connectData condata = MQTTPacket_connectData_initializer;
     static char cid[20] = { 0 };
 
