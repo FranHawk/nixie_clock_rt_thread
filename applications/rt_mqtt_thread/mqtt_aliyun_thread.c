@@ -63,9 +63,9 @@ static void mqtt_sub_callback(MQTTClient *c, MessageData *msg_data)
     LOG_D("mqtt sub callback:%s",(char *)msg_data->message->payload);
 
     cJSON* cjson_test = NULL;
-    cJSON* cjson_params = NULL;
+    cJSON* cjson_items = NULL;
     cJSON* cjson_display = NULL;
-
+    cJSON* cjson_display_value = NULL;
     cjson_test = cJSON_Parse((char *)msg_data->message->payload);
         if(cjson_test == NULL)
         {
@@ -73,10 +73,10 @@ static void mqtt_sub_callback(MQTTClient *c, MessageData *msg_data)
             return;
         }
 
-        cjson_params = cJSON_GetObjectItem(cjson_test,"params");
-        cjson_display = cJSON_GetObjectItem(cjson_params,"Display");
-
-        display_num = cjson_display->valueint;
+        cjson_items = cJSON_GetObjectItem(cjson_test,"items");
+        cjson_display = cJSON_GetObjectItem(cjson_items,"Display");
+        cjson_display_value = cJSON_GetObjectItem(cjson_display,"value");
+        display_num = cjson_display_value->valueint;
 
         cJSON_Delete(cjson_test);
 

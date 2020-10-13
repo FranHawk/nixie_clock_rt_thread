@@ -36,43 +36,52 @@ static void display_thread_entry(void *parameter)
 {
     time_t now;
     struct tm *p;
+    rt_uint16_t count = 0;
     int min = 0, hour = 0,sec = 0;
     rt_uint8_t data[6] = {1, 2, 3, 4, 5, 6};
     while(1)
     {
-        rt_thread_mdelay(1000);
+        count++;
+        if(count%200)
+        {
+            p=gmtime((const time_t*) &now);
+                    hour = p->tm_hour;
+                    min = p->tm_min;
+                    sec = p->tm_sec;
+                    now = time(RT_NULL);
 
-        p=gmtime((const time_t*) &now);
-        hour = p->tm_hour;
-        min = p->tm_min;
-        sec = p->tm_sec;
-        now = time(RT_NULL);
+                    //显示时分还是分秒
+                    if(display_num==0){
+                        data[0] = hour/10;
+                        data[1] = hour%10;
+                        data[2] = min/10;
+                        data[3] = min%10;
+                    }
+                    else{
+                        data[0] = min/10;
+                        data[1] = min%10;
+                        data[2] = sec/10;
+                        data[3] = sec%10;
+                    }
 
-//        data[0] = hour/10;
-//        data[1] = hour%10;
-//        data[2] = min/10;
-//        data[3] = min%10;
-
-        data[0] = min/10;
-        data[1] = min%10;
-        data[2] = sec/10;
-        data[3] = sec%10;
-
-
-
-        if (data[2]==0) {
-            data[2] = 9;
+                    if (data[2]==0) {
+                        data[2] = 9;
+                    }
+                    if (data[2]==2) {
+                        data[2] = 8;
+                    }
+                    //飞线
+                    HV57708_Display(data);
+                    //LOG_D("display num:%d",display_num);
         }
-        if (data[2]==2) {
-            data[2] = 8;
+        else {
+            //阴极保护
+            HV57708_Protection();
         }
-        //飞线
-        HV57708_Display(data);
-        LOG_D("hour1:%d",data[0]);
-        LOG_D("hour2:%d",data[1]);
-        LOG_D("min1:%d",data[2]);
-        LOG_D("min2:%d",data[3]);
-        //LOG_D("display num:%d",display_num);
+
+
+
+        rt_thread_mdelay(250);
     }
 
 }

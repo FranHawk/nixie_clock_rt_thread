@@ -181,8 +181,7 @@ void HV57708_Protection(void)
         HV57708_Display(data);
         rt_thread_mdelay(75);
     }
-    HV57708_SendData(0, 0);
-    HV57708_OutputData();
+
 }
 
 /*******************************************************************************

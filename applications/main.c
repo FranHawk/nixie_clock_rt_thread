@@ -18,7 +18,7 @@
 #include <rtdbg.h>
 #include <rtdevice.h>
 #include "drv_common.h"
-
+#include "ntp.h"
 #include "mqtt_aliyun_thread.h"
 #include "display_thread.h"
 
@@ -32,6 +32,9 @@ int main(void)
 
 
     rt_pin_mode(LED0_PIN, PIN_MODE_OUTPUT);
+
+    ntp_sync_to_rtc(RT_NULL);
+
 
     mqtt_start();
 
