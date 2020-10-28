@@ -12,19 +12,22 @@
 
 #define DBG_TAG "display"
 #define DBG_LVL DBG_LOG
-
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
 #include <rtdbg.h>
 #include <rtdevice.h>
 #include "drv_common.h"
 #include "drv_hv57708.h"
-
+#include "paho_mqtt.h"
 #include "display_thread.h"
-
+#include "mqtt_aliyun_thread.h"
+#include "cJSON.h"
 
 #define THREAD_PRIORITY         25
-#define THREAD_STACK_SIZE       1024
+#define THREAD_STACK_SIZE       4096
 #define THREAD_TIMESLICE        5
-
+#define MQTT_PUBTOPIC           "/sys/a1w0XJbXwh0/nixie_clock/thing/event/property/post"
 static rt_thread_t tid1 = RT_NULL;
 
 
@@ -39,6 +42,7 @@ static void display_thread_entry(void *parameter)
     struct tm *p;
     rt_uint16_t count = 0;
     int min = 0, hour = 0,sec = 0;
+    uint8_t timeup;
     rt_uint8_t data[6] = {1, 2, 3, 4, 5, 6};
     while(1)
     {
@@ -79,7 +83,28 @@ static void display_thread_entry(void *parameter)
             //阴极保护
             HV57708_Protection();
         }
+        if((hour==alarm_hour)&&(min==alarm_min))
+        {
+            timeup=0;
+            if((count%4)==0)
+                    {
 
+                        cJSON * pJsonRoot = NULL;
+                        pJsonRoot = cJSON_CreateObject();//
+                        cJSON_AddStringToObject(pJsonRoot, "id", "12345");//
+                        cJSON_AddStringToObject(pJsonRoot, "method", "thing.event.property.post");//
+                        cJSON * pJsonChild = cJSON_CreateObject();//
+                        cJSON_AddNumberToObject(pJsonChild, "TimeUp", timeup);
+                        cJSON_AddItemToObject(pJsonRoot, "params", pJsonChild);//
+
+                        char * lpJsonStr = cJSON_Print(pJsonRoot);
+                        cJSON_Delete(pJsonRoot);
+                        paho_mqtt_publish(&client,QOS1,MQTT_PUBTOPIC,lpJsonStr);
+                        free(lpJsonStr);
+
+
+                    }
+        }
 
 
         rt_thread_mdelay(250);

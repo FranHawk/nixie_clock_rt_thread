@@ -37,7 +37,7 @@
 #define MQTT_WILLMSG            "Goodbye!"
 
 /* define MQTT client context */
-static MQTTClient client;
+MQTTClient client;
 static int is_started = 0;
 
 
