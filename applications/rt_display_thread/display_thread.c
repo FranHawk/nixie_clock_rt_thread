@@ -29,7 +29,8 @@ static rt_thread_t tid1 = RT_NULL;
 
 
 uint8_t display_num;
-
+uint8_t alarm_hour;
+uint8_t alarm_min;
 
 
 static void display_thread_entry(void *parameter)

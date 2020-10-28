@@ -66,6 +66,10 @@ static void mqtt_sub_callback(MQTTClient *c, MessageData *msg_data)
     cJSON* cjson_items = NULL;
     cJSON* cjson_display = NULL;
     cJSON* cjson_display_value = NULL;
+    cJSON* cjson_alarm_hour = NULL;
+    cJSON* cjson_alarm_hour_value = NULL;
+    cJSON* cjson_alarm_min = NULL;
+    cJSON* cjson_alarm_min_value = NULL;
     cjson_test = cJSON_Parse((char *)msg_data->message->payload);
         if(cjson_test == NULL)
         {
@@ -75,13 +79,34 @@ static void mqtt_sub_callback(MQTTClient *c, MessageData *msg_data)
 
         cjson_items = cJSON_GetObjectItem(cjson_test,"items");
         cjson_display = cJSON_GetObjectItem(cjson_items,"Display");
-        cjson_display_value = cJSON_GetObjectItem(cjson_display,"value");
-        display_num = cjson_display_value->valueint;
+        if(cjson_display!=NULL)
+        {
+            cjson_display_value = cJSON_GetObjectItem(cjson_display,"value");
+            display_num = cjson_display_value->valueint;
+        }
+
+
+        cjson_alarm_hour = cJSON_GetObjectItem(cjson_items,"AlarmHour");
+        if(cjson_alarm_hour!=NULL)
+        {
+           cjson_alarm_hour_value = cJSON_GetObjectItem(cjson_alarm_hour,"value");
+        alarm_hour = cjson_alarm_hour_value->valueint;
+
+        }
+        cjson_alarm_min = cJSON_GetObjectItem(cjson_items,"AlarmMin");
+        if(cjson_alarm_min!=NULL)
+        {
+            cjson_alarm_min_value = cJSON_GetObjectItem(cjson_alarm_min,"value");
+        alarm_min = cjson_alarm_min_value->valueint;
+
+        }
+
 
         cJSON_Delete(cjson_test);
 
         LOG_D("display number:%d",display_num);
-
+        LOG_D("display number:%d",alarm_hour);
+        LOG_D("display number:%d",alarm_min);
 
 }
 

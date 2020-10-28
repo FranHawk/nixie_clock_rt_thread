@@ -11,7 +11,8 @@
 #define APPLICATIONS_RT_DISPLAY_THREAD_DISPLAY_THREAD_H_
 
 extern uint8_t display_num;
-
+extern uint8_t alarm_hour;
+extern uint8_t alarm_min;
 int display_thread_startup(void);
 
 #endif /* APPLICATIONS_RT_DISPLAY_THREAD_DISPLAY_THREAD_H_ */
